@@ -14,14 +14,14 @@ public class InputSystem : Singleton<InputSystem>
         base.Awake();
         inputActionMap.Enable();
 	}
-	void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void SetActiveInputSystem(bool active)
     {
-        
-    }
+        if (active)
+		    inputActionMap.Enable();
+        else
+		    inputActionMap.Disable();
+
+	}
+
 }
