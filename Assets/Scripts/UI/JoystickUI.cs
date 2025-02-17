@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class JoystickUI : MonoBehaviour
-{
+{ 
 	InputSystem input;
 	[SerializeField] RectTransform outline;
-    [SerializeField] RectTransform dirPoint;
+    [SerializeField] RectTransform dirPoint; 
     [SerializeField] RectTransform touchPoint;
 
     Vector3 startPos = Vector3.zero;
@@ -27,7 +27,7 @@ public class JoystickUI : MonoBehaviour
 		input.click.action.canceled -= OnClickRelase;
 	}
 
-	void OnClick(InputAction.CallbackContext obj)
+	 void OnClick(InputAction.CallbackContext obj)
     {
         startPos = Input.mousePosition;
 		outline.localPosition = outline.parent.InverseTransformPoint(startPos);
@@ -37,7 +37,7 @@ public class JoystickUI : MonoBehaviour
 		gameObject.SetActive(true); 
 	}
 
-    void OnClickRelase(InputAction.CallbackContext obj)
+	void OnClickRelase(InputAction.CallbackContext obj)
     {
 		gameObject.SetActive(false);
 
