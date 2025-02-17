@@ -10623,6 +10623,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!224 &466606211 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8153261725771961751, guid: 5a17b00d305177242a330f4747d9b186, type: 3}
+  m_PrefabInstance: {fileID: 2461684942441743117}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -10783,6 +10788,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &898352877 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6774502400091078151, guid: 5a17b00d305177242a330f4747d9b186, type: 3}
+  m_PrefabInstance: {fileID: 2461684942441743117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1004699899 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 9081714019085811379, guid: 5a17b00d305177242a330f4747d9b186, type: 3}
+  m_PrefabInstance: {fileID: 2461684942441743117}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1110575172
 GameObject:
   m_ObjectHideFlags: 0
@@ -10914,6 +10929,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1262110616 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1309516174041718652, guid: 5a17b00d305177242a330f4747d9b186, type: 3}
+  m_PrefabInstance: {fileID: 2461684942441743117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1262110621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262110616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a70efd4f13cd5143b9a9bca42f88bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 1004699899}
+  dirPoint: {fileID: 466606211}
+  touchPoint: {fileID: 898352877}
 --- !u!1 &1412334469
 GameObject:
   m_ObjectHideFlags: 0
@@ -11082,7 +11117,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -11234,7 +11269,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1309516174041718652, guid: 5a17b00d305177242a330f4747d9b186, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1262110621}
   m_SourcePrefab: {fileID: 100100000, guid: 5a17b00d305177242a330f4747d9b186, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

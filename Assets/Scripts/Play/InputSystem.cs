@@ -9,7 +9,12 @@ public class InputSystem : Singleton<InputSystem>
     [SerializeField] public InputActionReference click;
     [SerializeField] public InputActionReference position;
 
-    void Start()
+	protected override void Awake()
+	{
+        base.Awake();
+        inputActionMap.Enable();
+	}
+	void Start()
     {
         
     }
