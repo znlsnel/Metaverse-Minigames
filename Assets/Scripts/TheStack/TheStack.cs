@@ -3,19 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockManager : MonoBehaviour
+public class TheStack : MonoBehaviour
 {
     [SerializeField] GameObject blockPrefab;
     [SerializeField] GameObject prevBlock;
     [SerializeField] Transform animTarget;
     [SerializeField] float speed;
+	[Space(10)]
+	[SerializeField] TheStackScoreUI scoreUI;
+	
 
     GameObject curBlock;
     bool moveXAxis = true;
 
     Coroutine moveBlock;
 
-    public void Start()
+    public void StartGame()
     {
 		curBlock = Instantiate<GameObject>(blockPrefab);
         SetYPos(prevBlock, curBlock);
@@ -38,19 +41,29 @@ public class BlockManager : MonoBehaviour
 		float sizeY = prevBlock.transform.localScale.y;
 		float sizeZ = prevBlock.transform.localScale.z;
 		float sizeX = prevBlock.transform.localScale.x;
-
+		Vector3 BBX = GetBoundingBox(prevBlock) ;
 		if (dist < 0.1f)
 		{
-            Debug.Log("콤보");
+			scoreUI.AddCombo();
 			dist = 0.0f;
+		}
+		else if ((moveXAxis && dist >= BBX.x) || (!moveXAxis && dist >= BBX.z))
+		{
+			Debug.Log("실패");
+			scoreUI.GameOver();
+			StopCoroutine(moveBlock);
+			curBlock.AddComponent<Rigidbody>();
+			return;
 		}
         else
         {
+			scoreUI.ResetCombo(); 
 			if (moveXAxis)
 				sizeX -= dist;
 			else
 				sizeZ -= dist;
 		}
+		scoreUI.AddScore();
 
 
 		// 슬라이스 ( 남는 블록 )
@@ -99,13 +112,11 @@ public class BlockManager : MonoBehaviour
 			}
 			go.transform.localScale = new Vector3(sizeX, sizeY, sizeZ); // 크기 세팅
 			go.transform.position = pos;
-			go.AddComponent<Rigidbody>();	
+			go.AddComponent<Rigidbody>();
+			StartCoroutine(DestroyObejct(go, 5.0f));
+
 		}
 			
-		
-
-
-
 		prevBlock = curBlock;
         // 새로운 블록 생성
         curBlock = Instantiate<GameObject>(blockPrefab);
@@ -140,7 +151,9 @@ public class BlockManager : MonoBehaviour
     IEnumerator MoveBlock(GameObject block)
     {
 		moveXAxis = !moveXAxis;
-        float d = 1.0f;
+
+
+		float d = 1.0f;
 		while (true)
         {
             Vector3 dir = new Vector3(Time.deltaTime * speed * d, 0.0f, Time.deltaTime * speed * d);
@@ -163,5 +176,12 @@ public class BlockManager : MonoBehaviour
 
 			yield return null;
 		}
+
+	}
+
+	IEnumerator DestroyObejct(GameObject block, float time)
+	{
+		yield return new WaitForSeconds(time);
+		Destroy(block);
 	}
 }
