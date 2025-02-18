@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd
+  - enabled: 1
+    path: Assets/Scenes/TheStack/TheStackGameOver.unity
+    guid: f6ae34afdea2b6d428dd3d199d082395
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 6b0f4b1d4e292054eb663a6c414c9590, type: 2}
