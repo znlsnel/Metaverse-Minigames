@@ -52,6 +52,7 @@ public class BlockManager : MonoBehaviour
 				sizeZ -= dist;
 		}
 
+
 		// 슬라이스 ( 남는 블록 )
 		curBlock.transform.localScale = new Vector3(sizeX, sizeY, sizeZ); // 크기 세팅
 
@@ -75,13 +76,41 @@ public class BlockManager : MonoBehaviour
 		}
 		curBlock.transform.position = pos;
 
+		if (dist >= 0.1f)
+		{
+			// 슬라이스 ( 떨어지는 블록)
+			var go = Instantiate<GameObject>(blockPrefab);
+			var bb = curBlock.transform.localScale/2;
+			if (moveXAxis)
+			{
+				sizeX = dist;
+				if (curBlock.transform.position.x > prevBlock.transform.position.x)
+					pos.x += bb.x +dist / 2;
+				else
+					pos.x -= bb.x + dist / 2;
+			}
+			else
+			{
+				sizeZ = dist;
+				if (curBlock.transform.position.z > prevBlock.transform.position.z)
+					pos.z += bb.z + dist / 2;
+				else
+					pos.z -= bb.z + dist / 2;
+			}
+			go.transform.localScale = new Vector3(sizeX, sizeY, sizeZ); // 크기 세팅
+			go.transform.position = pos;
+			go.AddComponent<Rigidbody>();	
+		}
+			
+		
+
+
 
 		prevBlock = curBlock;
-
         // 새로운 블록 생성
         curBlock = Instantiate<GameObject>(blockPrefab);
-		curBlock.transform.localScale = new Vector3(sizeX, sizeY, sizeZ);
-		curBlock.transform.position = pos;
+		curBlock.transform.localScale = prevBlock.transform.localScale;
+		curBlock.transform.position = prevBlock.transform.position;
 
 		SetYPos(prevBlock, curBlock);
 		SetYPos(prevBlock, animTarget.gameObject);
