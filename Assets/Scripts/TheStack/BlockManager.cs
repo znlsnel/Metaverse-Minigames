@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class BlockManager : MonoBehaviour
 {
     [SerializeField] GameObject blockPrefab;
     [SerializeField] GameObject prevBlock;
+    [SerializeField] Transform animTarget;
     [SerializeField] float speed;
 
     GameObject curBlock;
@@ -15,28 +17,33 @@ public class BlockManager : MonoBehaviour
 
     public void Start()
     {
-
 		curBlock = Instantiate<GameObject>(blockPrefab);
         SetYPos(prevBlock, curBlock);
+        SetYPos(prevBlock, animTarget.gameObject);
         curBlock.transform.localScale = prevBlock.transform.localScale;
-        moveBlock = StartCoroutine(MoveBlock(curBlock));
+		moveBlock = StartCoroutine(MoveBlock(curBlock));
+
 	}
 
     public void OnClick()
     {
-        moveXAxis = !moveXAxis;
 
-		float dist = (curBlock.transform.position - prevBlock.transform.position).magnitude;
+        float dist = 0;
+        if (moveXAxis)
+			dist = Math.Abs(curBlock.transform.position.x - prevBlock.transform.position.x);
+		else
+			dist = Math.Abs(curBlock.transform.position.z - prevBlock.transform.position.z); 
+         
 
 		float sizeY = prevBlock.transform.localScale.y;
 		float sizeZ = prevBlock.transform.localScale.z;
 		float sizeX = prevBlock.transform.localScale.x;
 
 		if (dist < 0.1f)
-        {
-            // TODO
-            // 콤보! 
-        }
+		{
+            Debug.Log("콤보");
+			dist = 0.0f;
+		}
         else
         {
 			if (moveXAxis)
@@ -44,21 +51,50 @@ public class BlockManager : MonoBehaviour
 			else
 				sizeZ -= dist;
 		}
-        
 
-        curBlock.transform.localScale = new Vector3(sizeX, sizeY, sizeZ);
-        prevBlock = curBlock;
-         
+		// 슬라이스 ( 남는 블록 )
+		curBlock.transform.localScale = new Vector3(sizeX, sizeY, sizeZ); // 크기 세팅
+
+		// 위치값 세팅
+
+		Vector3 pos = prevBlock.transform.position;
+		pos.y = curBlock.transform.position.y;
+		if (moveXAxis)
+		{
+			if (curBlock.transform.position.x > prevBlock.transform.position.x)
+				pos.x += dist / 2;
+			else
+				pos.x -= dist / 2;
+		}
+		else
+		{
+			if (curBlock.transform.position.z > prevBlock.transform.position.z)
+				pos.z += dist / 2;
+			else 
+				pos.z -= dist / 2;
+		}
+		curBlock.transform.position = pos;
+
+
+		prevBlock = curBlock;
+
+        // 새로운 블록 생성
         curBlock = Instantiate<GameObject>(blockPrefab);
-		SetYPos(prevBlock, curBlock);
-        curBlock.transform.localScale = new Vector3(sizeX, sizeY, sizeZ);
+		curBlock.transform.localScale = new Vector3(sizeX, sizeY, sizeZ);
+		curBlock.transform.position = pos;
 
-        if (moveBlock != null)
+		SetYPos(prevBlock, curBlock);
+		SetYPos(prevBlock, animTarget.gameObject);
+
+		// 블록 움직이기
+		if (moveBlock != null)
             StopCoroutine(moveBlock);
-        moveBlock = StartCoroutine(MoveBlock(curBlock)); 
+        moveBlock = StartCoroutine(MoveBlock(curBlock));
 	}
 
-    void SetYPos(GameObject prev, GameObject cur)
+
+
+	void SetYPos(GameObject prev, GameObject cur)
     {
 		float y = prev.transform.position.y;
 		y += GetBoundingBox(prev).y;
@@ -74,8 +110,9 @@ public class BlockManager : MonoBehaviour
 
     IEnumerator MoveBlock(GameObject block)
     {
+		moveXAxis = !moveXAxis;
         float d = 1.0f;
-        while (true)
+		while (true)
         {
             Vector3 dir = new Vector3(Time.deltaTime * speed * d, 0.0f, Time.deltaTime * speed * d);
 
