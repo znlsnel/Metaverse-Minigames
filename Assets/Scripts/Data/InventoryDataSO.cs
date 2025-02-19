@@ -36,6 +36,14 @@ public class InventoryDataSO : ScriptableObject
 			EquipItem(item); 
 			EquipItem(item); 
 		}
+
+		if (vehicle.Length > 0)
+		{
+			var item = DataManager.instance.GetItem(vehicle).GetComponent<ItemData>();
+			EquipItem(item);
+			EquipItem(item); 
+		}
+
 	}    
     public void EquipItem(ItemData item)
     {

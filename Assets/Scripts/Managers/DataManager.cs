@@ -20,6 +20,7 @@ public class DataManager : Singleton<DataManager>
 			items.Add(id.name, go);
 		}
 	}
+
 	public List<GameObject> GetItems()
 	{
 		List<GameObject> list = new List<GameObject>();

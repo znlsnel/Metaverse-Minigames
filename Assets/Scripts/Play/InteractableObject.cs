@@ -9,7 +9,7 @@ public class InteractableObject : MonoBehaviour
 	protected virtual void OnInteract()
 	{
 		mainUI.SetActive(true);
-	} 
+	}  
 
 	protected virtual void ExitPlayer()
 	{

@@ -14,12 +14,13 @@ public class PlayerMovement : MonoBehaviour
 	Vector3 prevTouchPos;
 	bool isMoving = false;
 
+	float Xsize = 0;
 	private void Awake()
 	{
         input = InputSystem.instance;
 		input.click.action.performed += OnClick;
 		input.click.action.canceled += OnClickRelase;
-
+		Xsize = gameObject.transform.localScale.x;
 		sr = GetComponent<SpriteRenderer>();
 		rigid = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
@@ -46,7 +47,10 @@ public class PlayerMovement : MonoBehaviour
 		anim.SetBool("run", true);
 		rigid.MovePosition(rigid.position + (dir.normalized * Time.fixedDeltaTime * 3.0f));
 
-		sr.flipX = dir.x < 0;
+		//sr.flipX = dir.x < 0;
+		var s = gameObject.transform.localScale;
+		s.x = dir.x < 0 ? -Xsize : Xsize; 
+		gameObject.transform.localScale = s;
 	}
 
 	void OnClick(InputAction.CallbackContext obj)

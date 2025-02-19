@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
 	[SerializeField] ItemSlotUI equipSlot; 
+	[SerializeField] ItemSlotUI vehicleSlot; 
 	[Space(10)]
 
     [SerializeField] GameObject equipPanel;
@@ -34,8 +35,8 @@ public class InventoryUI : MonoBehaviour
 				itemSlots.Add(slot);
 			} 
 		}
-		 
 	}
+
 	private void Start()
 	{
 		DataManager.instance.inventory.InitEquipItems();
@@ -47,8 +48,8 @@ public class InventoryUI : MonoBehaviour
 		InventoryDataSO idata = DataManager.instance.inventory;
 		List<string> myItem = idata.myItems;
 
-		
 		equipSlot.InitSlot();
+		vehicleSlot.InitSlot();
 
 		int idx = 0;
 		foreach (var item in myItem)
@@ -59,7 +60,11 @@ public class InventoryUI : MonoBehaviour
 			if (idata.isEquiped(itemData))
 			{
 				go.SetActive(true); 
-				equipSlot.SetSlot(itemData.image, itemData.name);
+				if (itemData.type == EItemType.HELMET)
+					equipSlot.SetSlot(itemData.image, itemData.name);
+				else
+					vehicleSlot.SetSlot(itemData.image, itemData.name);
+
 				continue;
 			}
 			 
@@ -69,23 +74,17 @@ public class InventoryUI : MonoBehaviour
 
 		for (int i = idx; i < itemSlots.Count; i++)
 				itemSlots[i].InitSlot();
-		
-
 	}
-
-
 
 	public void EquipItem()
 	{
 		string name = itemSlots[selectItemIdx].name;
 		var itemData = DataManager.instance.GetItem(name).GetComponent<ItemData>();
-
 		DataManager.instance.inventory.EquipItem(itemData);
-
+		
 		SortItemList();
 		CloseEquipUI();
 	}
-
 
 	public void OpenUI()
 	{
@@ -95,6 +94,7 @@ public class InventoryUI : MonoBehaviour
 		inventoryPanel.SetActive(true);
 		closeBtn.SetActive(true);
     }
+
     public void CloseUI()
     {
 		inventoryPanel.SetActive(false);
@@ -112,15 +112,18 @@ public class InventoryUI : MonoBehaviour
 		selectItemIdx = -1;
 	}
 
-
-	public void UnEquip()
+	public void UnEquip(bool isVehicleSlot)
 	{ 
-		if (equipSlot.name.Length == 0)
+
+		if ((isVehicleSlot && vehicleSlot.name.Length == 0 )||( !isVehicleSlot && equipSlot.name.Length == 0))
 			return;
 
-		var itemData = DataManager.instance.GetItem(equipSlot.name).GetComponent<ItemData>();
+		var itemData = isVehicleSlot ? DataManager.instance.GetItem(vehicleSlot.name).GetComponent<ItemData>() :
+			DataManager.instance.GetItem(equipSlot.name).GetComponent<ItemData>();
+ 
 		DataManager.instance.inventory.EquipItem(itemData);
 		SortItemList(); 
 	}
 
 }
+ 

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0d808d2f488514ebf4da9b3e4aa260, type: 3}
+  m_Name: 0
+  m_EditorClassIdentifier: 
+  npcText: "\uC5B4\uC774, \uC2E0\uC785! \uB098\uB294 \uC774 \uB9C8\uC744\uC758 \uAC04\uD310
+    \uC2A4\uD0DC\uD504 '\uC6B0\uB514'\uB77C\uACE0 \uD574. \uC0C8\uB85C \uC628 \uB108\uD55C\uD14C
+    \uAC04\uB2E8\uD788 \uC774\uACF3\uC5D0 \uB300\uD574\uC11C \uC18C\uAC1C\uD574\uC904\uAC8C!"
+  response:
+  - nextDialogue: {fileID: 11400000, guid: 81e39a4f14ffe4d4a963fabbee2ef14a, type: 2}
+    playerText: "\uC624! \uC88B\uC544 \uC18C\uAC1C\uD574\uC918!"
+  - nextDialogue: {fileID: 11400000, guid: 35a78f3ef76aeb54f90c2b944e88486c, type: 2}
+    playerText: "\uD544\uC694 \uC5C6\uC5B4"
