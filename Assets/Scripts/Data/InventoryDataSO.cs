@@ -6,8 +6,11 @@ using UnityEngine;
 public class InventoryDataSO : ScriptableObject
 {
     public int gold;
+
     public List<string> myItems = new List<string>();
-    public string helmet = "";
+    HashSet<string> myItemHash = new HashSet<string>();
+
+    public string helmet = ""; 
     public string vehicle = "";
 
     public void AddItem(ItemData item) 
@@ -18,8 +21,13 @@ public class InventoryDataSO : ScriptableObject
     public bool HasItem(ItemData item)
     {
         return myItems.Contains(item.name);
-    } 
-     
+    }
+
+    public bool isEquiped(ItemData item)
+    {
+        return helmet == item.name || vehicle == item.name;
+    }
+
     public void EquipItem(ItemData item)
     {
 

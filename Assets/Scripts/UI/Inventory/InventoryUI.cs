@@ -32,31 +32,40 @@ public class InventoryUI : MonoBehaviour
 				slot.onClickButton = ()=>OpenEquipUI(num); 
 				itemSlots.Add(slot);
 			} 
-		} 
-    }
+		}
+		 
+	}
 
 	void SortItemList()
 	{
-		List<string> myItem = DataManager.instance.inventory.myItems;
+		InventoryDataSO idata = DataManager.instance.inventory;
+		List<string> myItem = idata.myItems;
+
+		
+		equipSlot.InitSlot();
 
 		int idx = 0;
 		foreach (var item in myItem)
 		{
-			if (item == equipSlot.name)
-				continue;
-
 			var itemData = DataManager.instance.GetItem(item).GetComponent<ItemData>();
+
+			if (idata.isEquiped(itemData))
+			{
+				equipSlot.SetSlot(itemData.image, itemData.name);
+				continue;
+			}
+			 
 			itemSlots[idx].SetSlot(itemData.image, itemData.name);
 			idx++;
 		}
-		
+
 		for (int i = idx; i < itemSlots.Count; i++)
-		{
-			if (i >= myItem.Count)
 				itemSlots[i].InitSlot();
-		}
+		
 
 	}
+
+
 
 	public void EquipItem()
 	{
@@ -64,15 +73,9 @@ public class InventoryUI : MonoBehaviour
 		var itemData = DataManager.instance.GetItem(name).GetComponent<ItemData>();
 
 		DataManager.instance.inventory.EquipItem(itemData);
-		itemSlots[selectItemIdx].InitSlot();
 
-		if (equipSlot.isEmpty() == false)
-			itemSlots[selectItemIdx].SetSlot(equipSlot.image, equipSlot.name);
-
-		equipSlot.SetSlot(itemData.image, itemData.name);
-
-		CloseEquipUI();
 		SortItemList();
+		CloseEquipUI();
 	}
 
 
@@ -100,6 +103,14 @@ public class InventoryUI : MonoBehaviour
 	}
 
 
+	public void UnEquip()
+	{ 
+		if (equipSlot.name.Length == 0)
+			return;
 
+		var itemData = DataManager.instance.GetItem(equipSlot.name).GetComponent<ItemData>();
+		DataManager.instance.inventory.EquipItem(itemData);
+		SortItemList(); 
+	}
 
 }
