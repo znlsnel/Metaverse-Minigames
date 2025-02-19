@@ -7,7 +7,7 @@ public class TheStack : MonoBehaviour
 {
     [SerializeField] GameObject blockPrefab;
     [SerializeField] GameObject prevBlock;
-    [SerializeField] Transform animTarget;
+    [SerializeField] Transform aimTarget;
     [SerializeField] float speed;
 	[Space(10)]
 	[SerializeField] TheStackScoreUI scoreUI;
@@ -22,7 +22,7 @@ public class TheStack : MonoBehaviour
     {
 		curBlock = Instantiate<GameObject>(blockPrefab);
         SetYPos(prevBlock, curBlock);
-        SetYPos(prevBlock, animTarget.gameObject);
+        SetYPos(prevBlock, aimTarget.gameObject);
         curBlock.transform.localScale = prevBlock.transform.localScale;
 		moveBlock = StartCoroutine(MoveBlock(curBlock));
 
@@ -53,6 +53,7 @@ public class TheStack : MonoBehaviour
 			scoreUI.GameOver();
 			StopCoroutine(moveBlock);
 			curBlock.AddComponent<Rigidbody>();
+			aimTarget.SetParent(curBlock.transform);
 			return;
 		}
         else
@@ -124,7 +125,7 @@ public class TheStack : MonoBehaviour
 		curBlock.transform.position = prevBlock.transform.position;
 
 		SetYPos(prevBlock, curBlock);
-		SetYPos(prevBlock, animTarget.gameObject);
+		SetYPos(prevBlock, aimTarget.gameObject);
 
 		// 블록 움직이기
 		if (moveBlock != null)

@@ -8,11 +8,11 @@ using UnityEngine.UI;
 
 public class TheStackScoreUI : MonoBehaviour
 {
-	[SerializeField] Text MyBestScoreText;
-	[SerializeField] Text MyBestComboText;
+    [SerializeField] GameScoreSO scoreData;
+    [Space(10)]
 
+	[SerializeField] Text MyBestScoreText;
 	[SerializeField] Text scoreText;
-    [SerializeField] Text bestComboText;
 
     [SerializeField] GameObject ComboGO;
     [SerializeField] TextMeshProUGUI comboText;
@@ -27,13 +27,10 @@ public class TheStackScoreUI : MonoBehaviour
 	{
 		ComboGO.SetActive(false);
 		scoreText.text = score.ToString();
-		bestComboText.text = bestCombo.ToString(); 
 
 		scoreText.gameObject.SetActive(false);
-		bestComboText.gameObject.SetActive(false);
 
-        MyBestScoreText.text = DataManager.instance.theStackBestScore.ToString();
-		MyBestComboText.text = DataManager.instance.theStackBestCombo.ToString();
+        MyBestScoreText.text = scoreData.bestScore.ToString();
 	}
 	public void AddScore()
     {
@@ -54,11 +51,12 @@ public class TheStackScoreUI : MonoBehaviour
         if (combo > bestCombo)
         {
 			bestCombo = combo;
-			bestComboText.text = bestCombo.ToString();
 		}
-	} 
+        score += combo;
+		scoreText.text = score.ToString();
+	}
 
-    public void ResetCombo()
+	public void ResetCombo()
     {
         combo = 0;
     }
@@ -66,19 +64,17 @@ public class TheStackScoreUI : MonoBehaviour
     public void GameOver() 
     {
         touchPad.SetActive(false);
-        DataManager.instance.theStackScore = score;
-        DataManager.instance.theStackCombo = bestCombo;
+		scoreData.curScore= score;
 
         MYMetaverse.instance.SetTimer(() =>
         {
             SceneManager.LoadScene("TheStackGameOver");
-        }, 1.0f);
+        }, 2.0f);
 	}
 
     public void StartGame()
     {
 		startButton.SetActive(false);
 		scoreText.gameObject.SetActive(true);
-		bestComboText.gameObject.SetActive(true);
 	}
 }

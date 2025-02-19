@@ -24,11 +24,12 @@ public class PlayerMovement : MonoBehaviour
 		rigid = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 	}
+	private void OnDestroy()
+	{
+		input.click.action.performed -= OnClick;
+		input.click.action.canceled -= OnClickRelase;
+	}
 
-	~PlayerMovement() 
-    { 
-    
-    }
 	void FixedUpdate()
 	{
 		OnMove();

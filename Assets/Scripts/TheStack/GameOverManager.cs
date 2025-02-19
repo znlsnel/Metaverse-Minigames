@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameOverManager : MonoBehaviour
 {
+	[SerializeField] GameScoreSO scoreData;
     [SerializeField] Text scoreText;
 	[SerializeField] Text gameOverText;
 	[SerializeField] GameObject retryBtn;
@@ -23,8 +24,7 @@ public class GameOverManager : MonoBehaviour
 	 
 	public void OpenUI()
 	{
-		var db = DataManager.instance;
-		if (db.theStackBestScore < db.theStackScore)
+		if (scoreData.bestScore < scoreData.curScore)
 		{
 			gameOverText.text = "Best Score ! !";
 			effect.SetActive(true);
@@ -32,20 +32,19 @@ public class GameOverManager : MonoBehaviour
 		else 
 			gameOverText.text = "Game Over . .";
 
-		db.UpdateBestScore();
+		scoreData.UpdateBestScore();
 		gameOverText.gameObject.SetActive(true);
 		retryBtn.SetActive(true);
 	}
 
 	IEnumerator UpdateScore()
     {
-		DataManager db = DataManager.instance;
 		float time = 1.5f;
 
 		float score = 0;
-		int target = db.theStackScore;
+		int target = scoreData.curScore;
 
-		float d = db.theStackScore / time;
+		float d = scoreData.curScore / time;
 		 
 		while (time > 0)
 		{

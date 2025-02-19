@@ -21,13 +21,14 @@ public class JoystickUI : MonoBehaviour
 		gameObject.SetActive(false);
 	}
 
-    ~JoystickUI() 
-    {
+	private void OnDestroy()
+	{
 		input.click.action.performed -= OnClick;
 		input.click.action.canceled -= OnClickRelase;
+		input.position.action.performed -= UpdateHandPosition;
 	}
 
-	 void OnClick(InputAction.CallbackContext obj)
+	void OnClick(InputAction.CallbackContext obj)
     {
         startPos = Input.mousePosition;
 		outline.localPosition = outline.parent.InverseTransformPoint(startPos);

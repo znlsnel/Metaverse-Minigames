@@ -4,17 +4,41 @@ using UnityEngine;
 
 public class DataManager : Singleton<DataManager>
 {
-    public int theStackScore = 0;
-    public int theStackCombo = 0;
-    public int theStackBestScore = 0;
-    public int theStackBestCombo = 0;
+	public InventoryDataSO inventory;
+	[SerializeField] List<GameObject> itemPrefabs = new List<GameObject>();
+	Dictionary<string, GameObject> items = new Dictionary<string, GameObject>();
 
-    public void UpdateBestScore()
-    {
-        if (theStackScore > theStackBestScore)
-			theStackBestScore = theStackScore;
-
-        if (theStackCombo > theStackBestCombo)
-			theStackBestCombo = theStackCombo;
+	private void Start()
+	{
+		foreach (var item in itemPrefabs)
+		{
+			ItemData id = item.GetComponent<ItemData>();
+			var go = Instantiate<GameObject>(item);
+			go.SetActive(false);
+			items.Add(id.name, go);
+		} 
 	}
+
+	public List<GameObject> GetItems()
+	{
+		List<GameObject> list = new List<GameObject>();
+        foreach (var item in items)
+			list.Add(item.Value);
+
+        return list;
+	}
+	 
+	public GameObject GetItem(string name)
+	{
+		var player = GameObject.FindWithTag("Player");
+		var go = items[name];
+		if (player != null)
+		{
+			go.transform.position = player.transform.position;
+			go.transform.SetParent(player.transform);
+			go.transform.localScale = Vector3.one;
+		} 
+		return go; 
+	} 
+
 }

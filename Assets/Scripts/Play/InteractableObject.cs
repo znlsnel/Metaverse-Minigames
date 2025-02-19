@@ -2,20 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class InteractableObject : MonoBehaviour
+public class InteractableObject : MonoBehaviour
 {
+	[SerializeField] public GameObject mainUI;
 	[SerializeField] GameObject interactableUI;
-	protected abstract void OnInteract();
-	protected abstract void ExitPlayer();
+	protected virtual void OnInteract()
+	{
+		mainUI.SetActive(true);
+	} 
+
+	protected virtual void ExitPlayer()
+	{
+		mainUI.SetActive(false);
+	}
+	public void CloseUI()
+	{
+		mainUI.SetActive(false);
+	}
 
 	public void ClickInteractiveButton()
 	{
-	//	InputSystem.instance.SetActiveInputSystem(false);
 		OnInteract(); 
 	}
 
-	private void Awake()
+	protected virtual void Awake()
 	{
+		mainUI.SetActive(false); 
 		interactableUI.SetActive(false);
 	}
 
