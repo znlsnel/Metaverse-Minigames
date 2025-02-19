@@ -32,6 +32,10 @@ public class GameOverManager : MonoBehaviour
 		else 
 			gameOverText.text = "Game Over . .";
 
+		DataManager.instance.resultData.reward += scoreData.curScore;
+		if (DataManager.instance.resultData.bestScore < scoreData.curScore)
+			DataManager.instance.resultData.bestScore = scoreData.curScore;
+
 		scoreData.UpdateBestScore();
 		gameOverText.gameObject.SetActive(true);
 		retryBtn.SetActive(true);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "InventoryData", menuName = "MySO/inventoryData")]
 public class InventoryDataSO : ScriptableObject
@@ -27,17 +28,25 @@ public class InventoryDataSO : ScriptableObject
     {
         return helmet == item.name || vehicle == item.name;
     }
-
+    public void InitEquipItems()
+    {
+        if (helmet.Length > 0)
+        {
+			var item = DataManager.instance.GetItem(helmet).GetComponent<ItemData>();
+			EquipItem(item); 
+			EquipItem(item); 
+		}
+	}    
     public void EquipItem(ItemData item)
     {
 
         if (item.type == EItemType.HELMET)
         {
-            if (helmet == item.name)
-            {
-                DataManager.instance.GetItem(item.name).SetActive(false);
+            if (helmet.Length > 0)
+			    DataManager.instance.GetItem(helmet).SetActive(false);
+
+			if (helmet == item.name)
                 helmet = "";
-			}
             else
             {
                 helmet = item.name;
@@ -46,12 +55,12 @@ public class InventoryDataSO : ScriptableObject
 		}
         else
         {
-			if (vehicle == item.name)
-			{
-				DataManager.instance.GetItem(item.name).SetActive(false);
+            if (vehicle.Length > 0)
+			    DataManager.instance.GetItem(vehicle).SetActive(false);
+
+			if (vehicle == item.name) 
 				vehicle = "";
-			}
-			else 
+			else  
 			{
 				vehicle = item.name;
 				DataManager.instance.GetItem(item.name).SetActive(true);

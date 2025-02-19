@@ -14,17 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gold: 0
   myItems:
-  - "\uD30C\uB780 \uB9C8\uB140\uC758 \uBAA8\uC790"
-  - "\uCD08\uB85D \uB9C8\uB140\uC758 \uBAA8\uC790"
+  - "\uAE30\uC0AC\uC758 \uBAA8\uC790"
   - "\uBE68\uAC04 \uB9C8\uB140\uC758 \uBAA8\uC790"
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  helmet: 
+  - "\uCD08\uB85D \uB9C8\uB140\uC758 \uBAA8\uC790"
+  - "\uD30C\uB780 \uB9C8\uB140\uC758 \uBAA8\uC790"
+  helmet: "\uAE30\uC0AC\uC758 \uBAA8\uC790"
   vehicle: 

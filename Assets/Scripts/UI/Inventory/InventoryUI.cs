@@ -15,6 +15,7 @@ public class InventoryUI : MonoBehaviour
 	[Space(10)]
 
 	[SerializeField] GameObject ItemListUI;
+	[SerializeField] Text gold;
 
 	List<ItemSlotUI> itemSlots = new List<ItemSlotUI>();
 
@@ -35,6 +36,11 @@ public class InventoryUI : MonoBehaviour
 		}
 		 
 	}
+	private void Start()
+	{
+		DataManager.instance.inventory.InitEquipItems();
+	}
+
 
 	void SortItemList()
 	{
@@ -47,10 +53,12 @@ public class InventoryUI : MonoBehaviour
 		int idx = 0;
 		foreach (var item in myItem)
 		{
-			var itemData = DataManager.instance.GetItem(item).GetComponent<ItemData>();
+			var go = DataManager.instance.GetItem(item);
+			var itemData = go.GetComponent<ItemData>();
 
 			if (idata.isEquiped(itemData))
 			{
+				go.SetActive(true); 
 				equipSlot.SetSlot(itemData.image, itemData.name);
 				continue;
 			}
@@ -81,6 +89,8 @@ public class InventoryUI : MonoBehaviour
 
 	public void OpenUI()
 	{
+		gold.text = DataManager.instance.inventory.gold.ToString();
+
 		SortItemList();
 		inventoryPanel.SetActive(true);
 		closeBtn.SetActive(true);

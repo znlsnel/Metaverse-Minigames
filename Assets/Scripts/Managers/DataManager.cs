@@ -7,18 +7,19 @@ public class DataManager : Singleton<DataManager>
 	public InventoryDataSO inventory;
 	[SerializeField] List<GameObject> itemPrefabs = new List<GameObject>();
 	Dictionary<string, GameObject> items = new Dictionary<string, GameObject>();
+	public GameResultData resultData = new GameResultData();
 
-	private void Start()
+	public void InitItem()
 	{
+		items.Clear();
 		foreach (var item in itemPrefabs)
 		{
 			ItemData id = item.GetComponent<ItemData>();
 			var go = Instantiate<GameObject>(item);
 			go.SetActive(false);
 			items.Add(id.name, go);
-		} 
+		}
 	}
-
 	public List<GameObject> GetItems()
 	{
 		List<GameObject> list = new List<GameObject>();
@@ -30,7 +31,7 @@ public class DataManager : Singleton<DataManager>
 	 
 	public GameObject GetItem(string name)
 	{
-		var player = GameObject.FindWithTag("Player");
+		var player = MainScene.instance.player;
 		var go = items[name];
 		if (player != null)
 		{
