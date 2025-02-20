@@ -6,7 +6,7 @@ using UnityEngine.Diagnostics;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TheStackScoreUI : MonoBehaviour
+public class GameScoreUI : MonoBehaviour
 {
     [SerializeField] GameScoreSO scoreData;
     [Space(10)]
@@ -25,6 +25,8 @@ public class TheStackScoreUI : MonoBehaviour
     int bestCombo = 0;
 	private void Awake()
 	{
+        DataManager.instance.gameScoreData = scoreData;
+        DataManager.instance.resultData.gameName = scoreData.name;
 		ComboGO.SetActive(false);
 		scoreText.text = score.ToString();
 
@@ -64,17 +66,22 @@ public class TheStackScoreUI : MonoBehaviour
     public void GameOver() 
     {
         touchPad.SetActive(false);
-		scoreData.curScore= score;
-
+		scoreData.curScore= score; 
+         
         MYMetaverse.instance.SetTimer(() =>
         {
-            SceneManager.LoadScene("TheStackGameOver");
-        }, 2.0f);
+            SceneManager.LoadScene("GameOverScene");
+
+		}, 2.0f);
 	}
 
     public void StartGame()
     {
 		startButton.SetActive(false);
 		scoreText.gameObject.SetActive(true);
+	}
+	public void RetryGame()
+	{
+        SceneManager.LoadScene(scoreData.sceneName);
 	}
 }

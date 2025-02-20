@@ -8,6 +8,7 @@ public class DataManager : Singleton<DataManager>
 	[SerializeField] List<GameObject> itemPrefabs = new List<GameObject>();
 	Dictionary<string, GameObject> items = new Dictionary<string, GameObject>();
 	public GameResultData resultData = new GameResultData();
+	public GameScoreSO gameScoreData;
 
 	public void InitItem()
 	{

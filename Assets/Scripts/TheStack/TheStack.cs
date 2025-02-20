@@ -10,7 +10,7 @@ public class TheStack : MonoBehaviour
     [SerializeField] Transform aimTarget;
     [SerializeField] float speed;
 	[Space(10)]
-	[SerializeField] TheStackScoreUI scoreUI;
+	[SerializeField] GameScoreUI scoreUI;
 	
 
     GameObject curBlock;
@@ -25,7 +25,7 @@ public class TheStack : MonoBehaviour
         SetYPos(prevBlock, aimTarget.gameObject);
         curBlock.transform.localScale = prevBlock.transform.localScale;
 		moveBlock = StartCoroutine(MoveBlock(curBlock));
-		DataManager.instance.resultData.gameName = "The Stack";
+
 	}
 
     public void OnClick()

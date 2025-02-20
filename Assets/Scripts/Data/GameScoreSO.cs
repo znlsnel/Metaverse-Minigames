@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameScoreSO : ScriptableObject
 {
     public string name;
+    public string sceneName;
 	public int curScore;
 	public int bestScore;
 

@@ -1,21 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameOverManager : MonoBehaviour
 {
-	[SerializeField] GameScoreSO scoreData;
     [SerializeField] Text scoreText;
 	[SerializeField] Text gameOverText;
 	[SerializeField] GameObject retryBtn;
 	[SerializeField] GameObject effect;
 
+	GameScoreSO scoreData;
+
 	int score = 0;
 
     void Start()
     {
-
+		scoreData = DataManager.instance.gameScoreData; 
 		gameOverText.gameObject.SetActive(false);
 		retryBtn.SetActive(false);
 		effect.SetActive(false);	
@@ -60,5 +62,9 @@ public class GameOverManager : MonoBehaviour
 		scoreText.text = target.ToString();
 	}
 
+	public void RetryGame()
+	{
+		SceneManager.LoadScene(scoreData.sceneName);
+	}
     
 }
