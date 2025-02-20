@@ -49,6 +49,9 @@
 - 상호작용이 가능한 오브젝트에 가까이 가면 버튼이 생성되게 하였으며, 해당 버튼을 클릭하면 UI가 호출되도록 만들었습니다.
 - 또한 스코어 보드를 구현 하였는데, 미니게임 데이터를 저장하는 Scriptable Object를 스코어보드에서 읽어드려서 사용하도록 구현했습니다.
 
+<img src="https://github.com/user-attachments/assets/5e851907-db7a-4938-825e-339c6f991330" width="300"> <br>
+- 상호작용을 통해 던전에 입장할 수 있도록 했습니다.
+
 ## 🎒인벤토리 시스템
 <img src="https://github.com/user-attachments/assets/df4ae527-d289-4251-bc33-e390b359277b" width="300"> <br>
 ![image](https://github.com/user-attachments/assets/14e35d5f-17ca-47cd-a018-a2d67ae07fa7) <br>
@@ -74,7 +77,7 @@
 - Scriptable Object를 활용하여 대화 시스템을 구현하였습니다.
 - 플레이어의 선택지에 다른 대화 데이터를 넣어서 계층 구조로 관리 되도록 만들었습니다.
 
-![image](https://github.com/user-attachments/assets/eecedc65-9a5e-4f6e-af69-19820488165d)
+![image](https://github.com/user-attachments/assets/6615ea28-effb-4bb4-9c66-1993026d6d34)
 
 ## 🏃🏼플레이어 이동 로직
 ![이동](https://github.com/user-attachments/assets/5661f9ef-c7b8-43d4-97a1-df6ad71fecab)
