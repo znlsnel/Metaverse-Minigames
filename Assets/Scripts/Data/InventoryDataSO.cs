@@ -9,7 +9,6 @@ public class InventoryDataSO : ScriptableObject
     public int gold;
 
     public List<string> myItems = new List<string>();
-    HashSet<string> myItemHash = new HashSet<string>();
 
     public string helmet = ""; 
     public string vehicle = "";

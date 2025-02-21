@@ -41,7 +41,6 @@ public class JoystickUI : MonoBehaviour
 	void OnClickRelase(InputAction.CallbackContext obj)
     {
 		gameObject.SetActive(false);
-
 	}
 
 	void UpdateHandPosition(InputAction.CallbackContext obj)

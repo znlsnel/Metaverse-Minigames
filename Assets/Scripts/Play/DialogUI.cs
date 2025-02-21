@@ -29,10 +29,14 @@ public class DialogUI : InteractableObject
 		}
 
 		npcText.text = dialog.npcText;
+
+        // 플레이어 선택지만큼 버튼 활성화
         for (int i = 0; i < dialog.response.Count; i++)
         {
             int idx = i;
             playerAnswers[i].GetComponent<Button>().onClick.RemoveAllListeners();
+
+            // 버튼이 클릭되면 UpdateDialogUI가 다시 호출되도록 구현
 			playerAnswers[i].GetComponent<Button>().onClick.AddListener(() =>
             { 
                 UpdateDialogUI(dialog.response[idx].nextDialogue); 
@@ -42,6 +46,7 @@ public class DialogUI : InteractableObject
 			playerAnswers[i].SetActive(true); 
         }
 
+        // 사용되지 않는 버튼 비활성화
         for (int i = dialog.response.Count; i < playerAnswers.Count; i++)
             playerAnswers[i].SetActive(false);
 

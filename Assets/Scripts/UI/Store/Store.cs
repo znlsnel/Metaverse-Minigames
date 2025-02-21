@@ -9,12 +9,12 @@ public class Store : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject itemUIPrefab;
     [SerializeField] GameObject itemParent;
-    [SerializeField] GameObject issuPanel;
+    [SerializeField] GameObject popup;
     [SerializeField] Text issuText;
 
     void Start()
     {
-        issuPanel.SetActive(false);
+        popup.SetActive(false);
 
 		List<GameObject> list = DataManager.instance.GetItems();
         foreach (GameObject item in list)
@@ -36,35 +36,36 @@ public class Store : MonoBehaviour
         DataManager db = DataManager.instance;
         InventoryDataSO id = db.inventory;
 
-		Debug.Log($"아이템 구매 : {name}");
         var go = db.GetItem(name);
-        issuText.text = "아이템 구매에 성공했습니다!";
-
         var itemData = go.GetComponent<ItemData>();
         
+        // 소유한 아이템이 아닌 경우
 		if (id.HasItem(itemData) == false)
         {
+            // 골드가 부족한 경우
 			if (id.gold < itemData.price)
 				issuText.text = "골드가 부족합니다.";
 
+            // 구매가 가능한 경우
             else
             {
+				issuText.text = "아이템 구매에 성공했습니다!";
 				id.AddItem(go.GetComponent<ItemData>());
                 id.gold -= itemData.price;
-
 				gold.text = id.gold.ToString();
 			}
 		}
+
+        // 이미 소유한 아이템인 경우
 		else
 			issuText.text = "이미 소유한 아이템입니다.";
 
-		 
-		issuPanel.SetActive(true);
+		popup.SetActive(true);
 	}
 
     public void CloseIssuePanel()
     {
-		issuPanel.SetActive(false);
+		popup.SetActive(false);
 
 	}
 }  

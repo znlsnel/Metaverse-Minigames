@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DialogueData", menuName = "MySO/DialogueData")]
-
-
 [Serializable]
 public class PlayerResponse
 {

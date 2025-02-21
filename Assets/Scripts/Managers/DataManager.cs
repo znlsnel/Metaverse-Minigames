@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DataManager : Singleton<DataManager>
 {
+	[NonSerialized] public GameScoreSO gameScoreData;
+
 	public InventoryDataSO inventory;
 	[SerializeField] List<GameObject> itemPrefabs = new List<GameObject>();
 	Dictionary<string, GameObject> items = new Dictionary<string, GameObject>();
 	public GameResultData resultData = new GameResultData();
-	public GameScoreSO gameScoreData;
 
 	public void InitItem()
 	{
